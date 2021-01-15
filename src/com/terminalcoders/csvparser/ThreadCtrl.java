@@ -1,9 +1,7 @@
-package com.tcs.deutschebank.csvparser;
+package com.terminalcoders.csvparser;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
 import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.*;

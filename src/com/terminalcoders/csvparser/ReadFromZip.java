@@ -1,4 +1,4 @@
-package com.tcs.deutschebank.csvparser;
+package com.terminalcoders.csvparser;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
