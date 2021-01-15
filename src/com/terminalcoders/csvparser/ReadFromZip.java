@@ -57,26 +57,28 @@ public class ReadFromZip implements Runnable{
 //          System.out.println(csvReader.readLine());
           while ((csvRecord = csvReader.readLine()) != null) {
             List<String> row = parseCsvRecord(csvRecord);
-            if (this.opt.equals("ROWS")) {
-              if(row.get(fld).equals(flt)){
-                model.addRow(row.toArray());
-              }
-            } else {
-              if(tim.equals("NONE")){
-                Integer cnt = tData.getOrDefault(row.get(fld), 0);
-                tData.put(row.get(fld), cnt+1);
-              } else {
-                String key = row.get(tcl).split(" ")[0];
-                if (tim.equals("HOURLY")) {
-                  key = row.get(tcl).split(":")[0];
+            try {
+              if (this.opt.equals("ROWS")) {
+                if (row.get(fld).equals(flt)) {
+                  model.addRow(row.toArray());
                 }
-                Map<String, Integer> dt = timeData.getOrDefault(key, new HashMap<String, Integer>());
-                Integer dx = dt.getOrDefault(row.get(fld), 0);
-                dt.put(row.get(fld), dx + 1);
-                timeData.put(key, dt);
+              } else {
+                if (tim.equals("NONE")) {
+                  Integer cnt = tData.getOrDefault(row.get(fld), 0);
+                  tData.put(row.get(fld), cnt + 1);
+                } else {
+                  String key = row.get(tcl).split(" ")[0];
+                  if (tim.equals("HOURLY")) {
+                    key = row.get(tcl).split(":")[0];
+                  }
+                  Map<String, Integer> dt = timeData.getOrDefault(key, new HashMap<String, Integer>());
+                  Integer dx = dt.getOrDefault(row.get(fld), 0);
+                  dt.put(row.get(fld), dx + 1);
+                  timeData.put(key, dt);
 //                System.out.println(key+":"+row.get(fld)+":"+(dx+1));
+                }
               }
-            }
+            } catch (ArrayIndexOutOfBoundsException ex) {}
           }
         } catch (IOException e) {
           JOptionPane.showMessageDialog(this.mw, e.getMessage(), "Error!!!", JOptionPane.ERROR_MESSAGE);
